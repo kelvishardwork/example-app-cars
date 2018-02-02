@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.brakeel.carros.R;
 import com.brakeel.carros.entities.Car;
+import com.brakeel.carros.listener.OnListClickInteractionListener;
 import com.brakeel.carros.viewholder.CarViewHolder;
 
 import java.util.List;
@@ -19,16 +20,15 @@ import java.util.List;
 public class CarListAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
     private List<Car> mListCars;
-    private int mCountOnCreate = 0;
-    private int mCountOnBind= 0;
+    private OnListClickInteractionListener mOnListClickInteractionListener;
 
-    public CarListAdapter(List<Car> cars) {
+    public CarListAdapter(List<Car> cars, OnListClickInteractionListener listener) {
         this.mListCars = cars;
+        this.mOnListClickInteractionListener = listener;
     }
 
     @Override
     public CarViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        this.mCountOnCreate++;
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View cardView = inflater.inflate(R.layout.row_car_list, parent, false);
@@ -37,9 +37,8 @@ public class CarListAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
     @Override
     public void onBindViewHolder(CarViewHolder holder, int position) {
-        this.mCountOnBind++;
         Car car = this.mListCars.get(position);
-        holder.bindData(car);
+        holder.bindData(car, this.mOnListClickInteractionListener);
     }
 
     @Override

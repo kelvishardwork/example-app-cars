@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.brakeel.carros.R;
 import com.brakeel.carros.entities.Car;
+import com.brakeel.carros.listener.OnListClickInteractionListener;
 
 /**
  * Created by Kelvis Borges on 02/02/2018.
@@ -20,7 +21,13 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
         this.mTextModel = (TextView) itemView.findViewById(R.id.text_model);
     }
 
-    public void bindData(Car car) {
+    public void bindData(final Car car, final OnListClickInteractionListener listener) {
         this.mTextModel.setText(car.model);
+        this.mTextModel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(car.id);
+            }
+        });
     }
 }
