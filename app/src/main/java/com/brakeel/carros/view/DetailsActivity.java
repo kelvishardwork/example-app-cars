@@ -2,6 +2,7 @@ package com.brakeel.carros.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brakeel.carros.R;
@@ -24,23 +25,29 @@ public class DetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
+        // Instancia Variaveis
+        this.mCarMock = new CarMock(this);
 
-
-        this.mCarMock = new CarMock();
-
-        this.mViewHolder.textModel = (TextView) findViewById(R.id.text_model);
+        // Instancia de elementos de interface
+        this.mViewHolder.imgCarPicture = (ImageView) findViewById(R.id.img_car_pic);
+        this.mViewHolder.textCarModel = (TextView) findViewById(R.id.text_car_model);
+        this.mViewHolder.textManuFacturer = (TextView) findViewById(R.id.text_manufacture);
         this.mViewHolder.textHorsePower = (TextView) findViewById(R.id.text_horse_power);
         this.mViewHolder.textPrice = (TextView) findViewById(R.id.text_price);
 
+        // Obtem o valor passado por parametro
         this.getDataFromActivity();
+
+        // Atribui os valores aos elementos de interface
         this.setData();
 
     }
 
     private void setData() {
-        this.mViewHolder.textModel.setText(this.mCar.model);
+        this.mViewHolder.textCarModel.setText(this.mCar.model);
+        this.mViewHolder.imgCarPicture.setImageDrawable(this.mCar.picture);
         this.mViewHolder.textHorsePower.setText(String.valueOf(this.mCar.horsePower));
-        this.mViewHolder.textPrice.setText(String.valueOf(this.mCar.price));
+        this.mViewHolder.textPrice.setText("R$ "+String.valueOf(this.mCar.price));
     }
 
     private void getDataFromActivity() {
@@ -51,7 +58,9 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private static class ViewHolder {
-        TextView textModel;
+        ImageView imgCarPicture;
+        TextView textCarModel;
+        TextView textManuFacturer;
         TextView textHorsePower;
         TextView textPrice;
     }
